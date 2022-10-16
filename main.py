@@ -1,3 +1,4 @@
+import numpy as np
 import pandas
 import matplotlib.pyplot as plt
 from sklearn import linear_model
@@ -42,5 +43,7 @@ if __name__ == '__main__':
     print("----------------------------------------------------------\nThe predicted house price per unit area is ",
           prediction)
     plt.scatter(dataframe.iloc[:, 0], y)  # The Scatter points for dataset values represented with blue dots
-    plt.scatter(len(dataframe)+1, prediction, c='r')  # scatter point for the predicted value represented with a red dot
+    plt.scatter(len(dataframe), prediction, c='r')  # scatter point for the predicted value represented with a red dot
+    m, b = np.polyfit(dataframe.iloc[:, 0], y, 1)
+    plt.scatter(dataframe.iloc[:, 0], m * dataframe.iloc[:, 0] + b)
     plt.show()  # show the completed scatter plot
