@@ -3,16 +3,34 @@ from sklearn import linear_model
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    """
+    This is an example of using linear regression on a dataset to predict a house price per unit area
+    The dataset consists of the following variables:
+    x1 = transaction date
+    x2 = house age in number of years
+    x3 = distance to the nearest MRT(Mass rapid transport) station
+    x4 = number of convenience stores nearby
+    x5 = house latitude location value
+    x6 = house longitude location value
+    y = house price value per unit area
+    """
     dataframe = pandas.read_csv('Real estate.csv')
-    x = dataframe.iloc[:, 1:7]
-    y = dataframe.iloc[:, 7]
+    # Gather columns from dataset
+    x = dataframe.iloc[:, 1:7]  # variables
+    y = dataframe.iloc[:, 7]  # value to fit
+    # apply linear regression to dataset
     regression = linear_model.LinearRegression()
-    regression.fit(x.values, y)
+    regression.fit(x.values, y)  # learning process
+    # use user inputs to predict using custom values
     x1 = float(input("enter transaction date e.g: (2013.55): "))
     x2 = float(input("enter house age: "))
-    x3 = float(input("enter distance to the nearest mass rapid transit system: "))
+    x3 = float(input("enter distance to the nearest mass rapid transit system in meters: "))
     x4 = float(input("number of convenience stores nearby: "))
     x5 = float(input("enter house latitude (between 24.9 - 25): "))
     x6 = float(input("enter house longitude (between 121-122): "))
+    # predict the value
     prediction = regression.predict([[x1, x2, x3, x4, x5, x6]])
-    print("----------------------------------------------------------\nThe predicted house price per unit area is ", prediction)
+    # print predicted value
+    print("----------------------------------------------------------\nThe predicted house price per unit area is ",
+          prediction)
+
