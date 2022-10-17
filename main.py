@@ -3,6 +3,7 @@ import pandas
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 import matplotlib
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     """
@@ -24,26 +25,32 @@ if __name__ == '__main__':
     regression = linear_model.LinearRegression()
     regression.fit(x.values, y)  # learning process
     # use user inputs to predict using custom values
-    # x1 = float(input("enter transaction date e.g: (2013.55): "))
-    # x2 = float(input("enter house age: "))
-    # x3 = float(input("enter distance to the nearest mass rapid transit system in meters: "))
-    # x4 = float(input("number of convenience stores nearby: "))
-    # x5 = float(input("enter house latitude (between 24.9 - 25): "))
-    # x6 = float(input("enter house longitude (between 121-122): "))
-    x1 = 2013
-    x2 = 10
-    x3 = 700
-    x4 = 1
-    x5 = 24.94
-    x6 = 121.6
+    x1 = float(input("enter transaction date e.g: (2013.55): "))
+    x2 = float(input("enter house age: "))
+    x3 = float(input("enter distance to the nearest mass rapid transit system in meters: "))
+    x4 = float(input("number of convenience stores nearby: "))
+    x5 = float(input("enter house latitude (between 24.9 - 25): "))
+    x6 = float(input("enter house longitude (between 121-122): "))
+    # Predetermined values example
+    # x1 = 2013
+    # x2 = 10
+    # x3 = 700
+    # x4 = 1
+    # x5 = 24.94
+    # x6 = 121.6
 
     # predict the value
     prediction = regression.predict([[x1, x2, x3, x4, x5, x6]])
     # print predicted value
     print("----------------------------------------------------------\nThe predicted house price per unit area is ",
           prediction)
-    plt.scatter(dataframe.iloc[:, 0], y)  # The Scatter points for dataset values represented with blue dots
-    plt.scatter(len(dataframe), prediction, c='r')  # scatter point for the predicted value represented with a red dot
+    # The Scatter points for dataset values represented with blue dots
+    plt.scatter(dataframe.iloc[:, 0], y)
+    # scatter point for the predicted value represented with a red dot
+    plt.scatter(len(dataframe), prediction, c='r')
+    # plot the linear regression line on the scatter plot
     m, b = np.polyfit(dataframe.iloc[:, 0], y, 1)
     plt.scatter(dataframe.iloc[:, 0], m * dataframe.iloc[:, 0] + b)
-    plt.show()  # show the completed scatter plot
+    # show the completed scatter plot
+    plt.show()
+
