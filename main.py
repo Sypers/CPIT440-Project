@@ -5,6 +5,8 @@ from sklearn import linear_model
 import matplotlib
 
 # Press the green button in the gutter to run the script.
+from sklearn.model_selection import train_test_split
+
 if __name__ == '__main__':
     """
     This is an example of using linear regression on a dataset to predict a house price per unit area
@@ -17,40 +19,29 @@ if __name__ == '__main__':
     x6 = house longitude location value
     y = house price value per unit area
     """
-    dataframe = pandas.read_csv('Real estate.csv')
     # Gather columns from dataset
-    x = dataframe.iloc[:, 1:7]  # variables
-    y = dataframe.iloc[:, 7]  # value to fit
+    dataframe = pandas.read_csv('Real estate.csv')
+    x_train, x_test, y_train, y_test = train_test_split(dataframe.iloc[:, 1:7], dataframe.iloc[:, 7], test_size=0.025, shuffle=False)
     # apply linear regression to dataset
     regression = linear_model.LinearRegression()
-    regression.fit(x.values, y)  # learning process
-    # use user inputs to predict using custom values
-    x1 = float(input("enter transaction date e.g: (2013.55): "))
-    x2 = float(input("enter house age: "))
-    x3 = float(input("enter distance to the nearest mass rapid transit system in meters: "))
-    x4 = float(input("number of convenience stores nearby: "))
-    x5 = float(input("enter house latitude (between 24.9 - 25): "))
-    x6 = float(input("enter house longitude (between 121-122): "))
-    # Predetermined values example
-    # x1 = 2013
-    # x2 = 10
-    # x3 = 700
-    # x4 = 1
-    # x5 = 24.94
-    # x6 = 121.6
-
+    regression.fit(x_train, y_train)  # learning process
+    # Create a series to save prediction values
+    prediction = pandas.Series(regression.predict(x_test), index=x_test.index, name="Y Prediction")
+    results = pandas.concat([y_test, prediction], axis=1)
+    print(results)
+    print("The Accuracy of the linear regression model = ",  round(regression.score(x_test, y_test)*100, 4), "%")
     # predict the value
-    prediction = regression.predict([[x1, x2, x3, x4, x5, x6]])
+    # predictions = regression.predict()
     # print predicted value
-    print("----------------------------------------------------------\nThe predicted house price per unit area is ",
-          prediction)
+    # print("----------------------------------------------------------\nThe predicted house price per unit area is ",
+    #       prediction)
     # The Scatter points for dataset values represented with blue dots
-    plt.scatter(dataframe.iloc[:, 0], y)
+    # plt.scatter(dataframe.iloc[:, 0], y)
     # scatter point for the predicted value represented with a red dot
-    plt.scatter(len(dataframe), prediction, c='r')
+    # plt.scatter(len(dataframe), prediction, c='r')
     # plot the linear regression line on the scatter plot
-    m, b = np.polyfit(dataframe.iloc[:, 0], y, 1)
-    plt.scatter(dataframe.iloc[:, 0], m * dataframe.iloc[:, 0] + b)
+    # m, b = np.polyfit(dataframe.iloc[:, 0], y, 1)
+    # plt.scatter(dataframe.iloc[:, 0], m * dataframe.iloc[:, 0] + b)
     # show the completed scatter plot
-    plt.show()
+    # plt.show()
 
