@@ -21,7 +21,7 @@ if __name__ == '__main__':
     """
     # Gather columns from dataset
     dataframe = pandas.read_csv('Real estate.csv')
-    x_train, x_test, y_train, y_test = train_test_split(dataframe.iloc[:, 1:7], dataframe.iloc[:, 7], test_size=0.025, shuffle=False)
+    x_train, x_test, y_train, y_test = train_test_split(dataframe.iloc[:, 1:7], dataframe.iloc[:, 7], test_size=0.024, shuffle=False)
     # apply linear regression to dataset
     regression = linear_model.LinearRegression()
     regression.fit(x_train, y_train)  # learning process
@@ -30,18 +30,13 @@ if __name__ == '__main__':
     results = pandas.concat([y_test, prediction], axis=1)
     print(results)
     print("The Accuracy of the linear regression model = ",  round(regression.score(x_test, y_test)*100, 4), "%")
-    # predict the value
-    # predictions = regression.predict()
-    # print predicted value
-    # print("----------------------------------------------------------\nThe predicted house price per unit area is ",
-    #       prediction)
     # The Scatter points for dataset values represented with blue dots
-    # plt.scatter(dataframe.iloc[:, 0], y)
+    plt.scatter(y_test.index, y_test)
     # scatter point for the predicted value represented with a red dot
-    # plt.scatter(len(dataframe), prediction, c='r')
+    plt.scatter(prediction.index, prediction, c='r')
     # plot the linear regression line on the scatter plot
-    # m, b = np.polyfit(dataframe.iloc[:, 0], y, 1)
-    # plt.scatter(dataframe.iloc[:, 0], m * dataframe.iloc[:, 0] + b)
+    m, b = np.polyfit(y_test.index, y_test, 1)
+    plt.plot(y_test.index, m * y_test.index + b, color='green')
     # show the completed scatter plot
-    # plt.show()
+    plt.show()
 
