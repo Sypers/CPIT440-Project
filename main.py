@@ -1,8 +1,8 @@
+# Make sure that you have the following libraries installed
 import numpy as np
 import pandas
 import matplotlib.pyplot as plt
 from sklearn import linear_model
-import matplotlib
 
 # Press the green button in the gutter to run the script.
 from sklearn.model_selection import train_test_split
@@ -21,6 +21,7 @@ if __name__ == '__main__':
     """
     # Gather columns from dataset
     dataframe = pandas.read_csv('Real estate.csv')
+    # Split the data into train and test sets for x and y
     x_train, x_test, y_train, y_test = train_test_split(dataframe.iloc[:, 1:7], dataframe.iloc[:, 7], test_size=0.024, shuffle=False)
     # apply linear regression to dataset
     regression = linear_model.LinearRegression()
